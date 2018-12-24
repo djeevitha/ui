@@ -1,0 +1,233 @@
+:root{
+	--size:250px;
+} 
+
+body{
+	background: linear-gradient(to bottom, #3298fd 0%, #89c4ff 60%, #c9dfff 60%, white 80%);
+	width:100vw; 
+	height:100vh;
+	overflow:hidden;
+}
+
+.penguin{
+	width:var(--size);
+	height:var(--size);
+	background:#000;
+	position:absolute;
+	top:calc( 50% - var(--size) / 2 );
+	left:calc(50% - var(--size) / 2 );
+	border-radius: 50% 50% 30% 30%;
+	z-index:10;
+	
+	&:after{
+		
+	}
+	
+	.body{
+		width:70%;
+		height:70%;
+		position:absolute;
+		left:15%;
+		top:15%;
+		border-radius: 50% 50% 30% 30%;
+		background: linear-gradient(to bottom, black 49%, white 49%);
+		
+		&::before,
+		&::after{
+			content:'';
+			display:block;
+			width:60%;
+			height:25%;
+			background:#000;
+			position:absolute;
+			top: 40%;
+		}
+		&::after{
+			right: 0;
+			border-radius: 100% 81% 77% 100% / 62% 30% 78% 100%;
+			transform:rotate(-120deg);
+			animation: right-wing 7s infinite;	
+			transform-origin: top right;
+		}
+		&::before{
+			left: 0%;
+			border-radius: 81% 100% 100% 77% / 30% 62% 100% 78%;
+			transform:rotate(120deg);
+			animation: left-wing 10s infinite;	
+			transform-origin: 0 0;
+		}
+
+		.eye{
+			background:#fff;
+			border-radius:83% 36% 0% 0% / 99% 79% 0% 0%;
+			width:45%;
+			height:50%;
+			position:absolute;
+			&:after{
+				content:'';
+				display:block;
+				height:30%;
+				width:50%;
+				border-top:calc(var(--size) / 30) solid #000;
+				border-radius:50%;
+				position:absolute;
+				top:40%;
+				left:30%;
+				animation: eyes 4s infinite;	
+			}
+
+			+ .eye{
+				border-radius:36% 83%  0% 0% / 79% 99% 0% 0%;
+				left:55%;
+				&:after{
+					left:20%;
+				}
+			}
+		}
+		
+		.beak{
+			content:'';
+			width:30%;
+			height:30%;
+			position:absolute;
+			left:35%;
+			top:30%;
+			border-radius:15%;
+			background:linear-gradient(225deg, orange 0%, #a96500 130%);
+			border-radius: 50% 50% 50% 0;
+			transform-origin:center center;
+			transform:rotate(-45deg);
+			transition: 1s all;
+			z-index:5;
+
+		}
+	}
+	.foot{
+		background:orange;
+		width:50%;
+		height:8%;
+		position:absolute;
+		bottom:-2%;
+		left:-1%;
+		border-radius:100% 15% 8% 4% / 100% 30% 35% 14%;
+		animation: foot-left 1s infinite;	
+		transform-origin:top right;
+		
+		
+		+ .foot{
+			left:51%;
+			border-radius:15% 100% 4% 8% / 30% 100% 14% 35%;
+			transform-origin:top left;
+			animation: foot-right 1s infinite .5s;	
+		}
+	}
+	
+}
+
+.cloud{
+	position:absolute;
+	width:150px;
+	height:30px;
+	background:#fff;
+	border-radius: 100px 255px 63px 50px / 75px 75px 8px 8px;
+	top:10%;
+	filter:blur(5px);
+	z-index:5;
+	@for $i from 1 through 20{
+		&:nth-child(#{$i}) {
+			top:random(40) + vh;
+			transform: scale(.5+random(20) / 10);
+			left: random(150) - 50 + vw;
+			animation: cloud random(30)+30 + s infinite;	
+		}
+	}
+
+	&:before,
+	&:after{
+		content:'';
+		width:50px;
+		height:50px;
+		background:#fff;
+		border-radius:50%;
+		position:absolute;
+		left:20px;
+		top:-10px;
+		display:block;
+	}
+	&:before{
+		top:-20px;
+		left:50px;
+		width:70px;
+		height:70px;
+	}
+}
+.sun{
+	width:200px;
+	height:200px;
+	background:radial-gradient(yellow 30%, transparent 70%, transparent 100%);
+	filter:blur(10px);
+	border-radius:50%;
+}
+
+
+.rock{
+	position:absolute;
+	width:480px;
+	height:150px;
+	margin-top:-75px;
+	background:#ccc;
+	border-radius: 50%;
+	top:120%;
+	z-index:5;
+
+	@for $i from 1 through 20{
+		&:nth-child(#{$i}) {
+			background:hsl(220,random(100),90);
+			transform: scale(.5+random(5) / 10);
+			left: random(150) - 50 + vw;
+			animation: rock 10s infinite;	
+			animation-delay:$i + s;
+		}
+	}
+}
+
+@keyframes eyes {
+  0% {border-top-width:calc(var(--size) / 30); }
+  50% {
+		border-top-width:calc(var(--size) / 10);
+	}
+  100% {border-top-width:calc(var(--size) / 30); }
+}
+
+@keyframes left-wing {
+  0% {transform:rotate(120deg);}
+  50% {transform:rotate(100deg);}
+  100% {transform:rotate(120deg);}
+}
+@keyframes right-wing {
+  0% {transform:rotate(-120deg);}
+  50% {transform:rotate(-100deg);}
+  100% {transform:rotate(-120deg);}
+}
+@keyframes foot-left {
+  20% {transform:rotate(0);}
+  50% {transform:rotate(5deg);}
+  80% {transform:rotate(0);}
+}
+@keyframes foot-right {
+  20% {transform:rotate(0);}
+  50% {transform:rotate(-5deg);}
+  80% {transform:rotate(0);}
+}
+
+@keyframes cloud {
+	0%{margin-left:0}
+	50%{margin-left:20vw}
+	100%{margin-left:0}
+}
+
+@keyframes rock{
+	0%{top:120%;transform:scaley(1); filter:blur(10px);}
+	100%{top:60%; transform:scaley(0); filter:blur(20px);}
+}
+
